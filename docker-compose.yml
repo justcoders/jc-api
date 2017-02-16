@@ -6,8 +6,30 @@ services:
     ports:
       - "3055:3000"
       - "9555:9615"
+    depends_on:
+       - mongodb
     environment:
       NODE_ENV: development
+      MONGODB_HOST: mongodb
+      MONGODB_DATABASE: "justcoders"
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - 27057:27017
+    volumes:
+      - "mongodb:/data/db"
+    command: --smallfiles --rest
+
+
+volumes:
+  mongodb:
+    external:
+      name: mongodb
+
+networks:
+  default:
+    driver: bridge
