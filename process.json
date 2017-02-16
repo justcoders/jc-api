@@ -1,0 +1,7 @@
+{
+  "apps" : [{
+    "name"       : "jc-api",
+    "script"     : "./bin/www",
+    "watch"      : true
+  }]
+}

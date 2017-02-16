@@ -1,0 +1,13 @@
+version: "2"
+services:
+  api:
+    build: .
+    command: "pm2-docker process.json --web"
+    ports:
+      - "3055:3000"
+      - "9555:9615"
+    environment:
+      NODE_ENV: development
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
