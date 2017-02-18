@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const app = require('../app');
+const app = require('../index');
 const debug = require('debug')('jc-api:server');
 const http = require('http');
 
@@ -47,5 +47,4 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-  console.log('Listening on ' + bind);
 }

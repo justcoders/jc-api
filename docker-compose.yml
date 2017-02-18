@@ -9,6 +9,7 @@ services:
     depends_on:
        - mongodb
     environment:
+      RUN_ENV: dev
       NODE_ENV: development
       MONGODB_HOST: mongodb
       MONGODB_DATABASE: "justcoders"
