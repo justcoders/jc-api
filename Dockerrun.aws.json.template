@@ -1,0 +1,16 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Authentication": {
+    "Bucket": "ivanzmerzlyi-shared",
+    "Key": "dockercfg"
+  },
+  "Image": {
+    "Name": "justcoders/jc-api:<TAG>",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "3000"
+    }
+  ]
+}
