@@ -15,6 +15,5 @@ RUN npm install
 COPY . $APP_HOME
 
 EXPOSE 3000
-EXPOSE 9615
-CMD ["pm2-docker", "process.json", "--web"]
+CMD ["pm2-docker", "process.json"]
 

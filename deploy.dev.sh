@@ -17,7 +17,7 @@ deploy_develop(){
     ssh $DEPLOY_USER@$DEPLOY_HOST 'docker pull justcoders/jc-api:develop'
 
     echo "Starting the new version"
-    ssh $DEPLOY_USER@$DEPLOY_HOST 'docker run -e VIRTUAL_HOST=devapi.justcoders.org -e MONGODB_HOST=localhost -e RUN_ENV=develop -e MONGODB_DATABASE=justcoders -d --restart=always --name jc-api-develop justcoders/jc-api:develop'
+    ssh $DEPLOY_USER@$DEPLOY_HOST 'docker run -e VIRTUAL_HOST=devapi.justcoders.org --link mongodb -e MONGODB_HOST=mongodb -e RUN_ENV=develop -e MONGODB_DATABASE=justcoders -d --restart=always --name jc-api-develop justcoders/jc-api:develop'
 
     echo "Success!"
 }
