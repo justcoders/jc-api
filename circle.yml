@@ -16,8 +16,6 @@ dependencies:
 test:
   override:
     - docker run --rm jc-api-test
-  post:
-    - docker rmi jc-api-test
 
 deployment:
   elasticbeanstalk:
