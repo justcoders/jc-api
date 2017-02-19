@@ -1,23 +1,27 @@
 machine:
-  python:
-    version: 2.7.3
+  environment:
+    RUN_ENV: test
+    MONGODB_HOST: mongodb://127.0.0.1:27017
+    MONGODB_DATABASE: justcoders
+    TAG: justcoders/jc-api
   services:
     - docker
 
 dependencies:
   pre:
-    - pip install awscli
-    - docker build --rm=false -t justcoders/jc-api:$CIRCLE_SHA1 .
-    - docker run --name test-mongo -d mongo
+    - docker build -t $TAG:$CIRCLE_SHA1 --no-cache .
+    - docker tag $TAG:$CIRCLE_SHA1 jc-api
+    - docker build -t jc-api-test -f Dockerfile.test --no-cache .
 
 test:
   override:
-    - docker run -d -p 3000:3000 -e "MONGODB_HOST=test-mongo" -e "MONGODB_DATABASE=justcoders" justcoders/jc-api:$CIRCLE_SHA1; sleep 10
-    - curl --retry 10 --retry-delay 5 -v http://localhost:3000
+    - docker run --rm jc-api-test
+  post:
+    - docker rmi jc-api-test
 
 deployment:
   elasticbeanstalk:
     branch: master
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - ./deploy.sh $CIRCLE_SHA1
+      - ./deploy.sh $TAG $CIRCLE_SHA1

@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 
-SHA1=$1
+TAG=$1
+SHA1=$2
 
-docker push justcoders/jc-api:$SHA1
+# Push the new tested production image to a docker repository:
+docker push $TAG:$SHA1
+
+# Push the latest tag for this image:
+docker tag $TAG:$SHA1 $TAG:latest
+docker push $TAG:latest
 
 # Create new Elastic Beanstalk version
 EB_BUCKET=jc-api-bucket
